@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import UsersList from '../UsersList';
+import renderer from 'react-test-renderer';
 
 const users = [
   {
@@ -25,3 +26,8 @@ test('UsersList renders properly', () => {
   expect(element.get(0).props.className).toBe('well');
   expect(element.get(0).props.children).toBe('michael');
 });
+
+test('UsersList renders a snapshot properly', () => {
+    const tree = renderer.create(<UsersList users={users}/>).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
